@@ -1,5 +1,5 @@
 .col-12.ps-5.pe-5
-  .row.d-flex.justify-content-center.gap-3
+  .d-flex.justify-content-center.gap-3
     .col.bg-light.rounded.p-3
       h3 Personal Transactions
       hr
@@ -11,4 +11,18 @@
   .col-12.text-light
     hr
 
+  - if @groups.present?
+    - @groups.each do |group|
+      .col.bg-light.rounded.p-3
+        h3= group.name
+        hr
+        .col-12.d-flex.justify-content-between
   
+  - else
+    .col.bg-light.rounded.p-3
+      h3 No Groups
+      hr
+      .col-12.d-flex.justify-content-between
+        | Create a group to start tracking your transactions
+        = link_to new_group_path, class: "btn btn-primary" do
+          | Create Group

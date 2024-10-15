@@ -13,4 +13,8 @@ html
       = link_to root_path, class: "text-decoration-none" do
         h1.text-light MoneyTracker
 
+    - flash.each do |key, value|
+      .alert class="alert-#{key}" role="alert"
+        = value
+
     = yield

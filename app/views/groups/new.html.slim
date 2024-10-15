@@ -1,0 +1,14 @@
+.col-12.d-flex.justify-content-center
+  .col-11.col-md-6.col-lg-4.p-2.mt-5
+    = form_for @group do |f|
+      .form-group
+        = f.label :name, 'Group Name', class: 'text-light'
+        = f.text_field :name, class: 'form-control', placeholder: 'Group Name'
+      .form-group.mt-3.d-flex.justify-content-end
+        = f.submit 'Create Group', class: 'btn btn-primary'
+
+.col-12.text-light
+  hr
+
+.p-2
+  h2.text-light What is a Group?

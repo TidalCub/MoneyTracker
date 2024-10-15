@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_15_093315) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_15_124450) do
+  create_table "groups", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "join_code"
+    t.datetime "join_code_expiry"
+    t.datetime "join_code_sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "groups_users", id: false, force: :cascade do |t|
+    t.integer "group_id", null: false
+    t.integer "user_id", null: false
+    t.index ["group_id", "user_id"], name: "index_groups_users_on_group_id_and_user_id", unique: true
+    t.index ["group_id"], name: "index_groups_users_on_group_id"
+    t.index ["user_id"], name: "index_groups_users_on_user_id"
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -34,5 +51,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_093315) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "groups_users", "groups"
+  add_foreign_key "groups_users", "users"
   add_foreign_key "transactions", "users"
 end
