@@ -1,6 +1,10 @@
 class TransactionsController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @transactions = current_user.transactions.all
+  end
+
   def show
     @transaction = Transaction.find(params[:id])
   end
