@@ -1,7 +1,7 @@
 .col-12.d-flex.justify-content-center
 
     .col-11.col-md-6.col-lg-4.mt-5
-      .col-12.bg-light.d-flex.gap-2.overflow-auto.mb-2
+      .col-12.d-flex.gap-2.overflow-auto.mb-2
         - (1..Date.today.month.to_i).reverse_each do |month|
           = link_to transactions_url(:month => month, :year => Date.today.year), class: "btn  #{@month == month ? "btn-primary" : "btn-secondary"}" do
             = Date::MONTHNAMES[month]
