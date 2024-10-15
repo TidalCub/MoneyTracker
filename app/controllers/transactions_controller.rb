@@ -2,7 +2,13 @@ class TransactionsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @transactions = current_user.transactions.all
+    if params[:month].present?
+      month = params[:month].to_i
+      @transactions = current_user.transactions.where(date: Date.new(Date.today.year, month,
+                                                                     1)..Date.new(Date.today.year, month, -1))
+    else
+      redirect_to transactions_path(month: Date.today.month)
+    end
   end
 
   def show
