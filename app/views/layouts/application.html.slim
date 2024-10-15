@@ -10,5 +10,7 @@ html
     = javascript_importmap_tags
   body.bg-dark
     .col-12.bg-dark.p-2
-      h1.text-light MoneyTracker
+      = link_to root_path, class: "text-decoration-none" do
+        h1.text-light MoneyTracker
+
     = yield
