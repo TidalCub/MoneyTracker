@@ -1,11 +1,13 @@
 class TransactionsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_group
 
   def index
     if index_params
       @month = params[:month].to_i
-      year = params[:year].to_i
-      @transactions = current_user.transactions.where(date: Date.new(year, @month, 1)..Date.new(year, @month, -1))
+      @year = params[:year].to_i
+      @transactions = @group.transactions.where(date: Date.new(@year, @month, 1)..Date.new(@year, @month, -1))
+
     else
       redirect_to transactions_path(month: Date.today.month, year: Date.today.year)
     end
@@ -17,18 +19,27 @@ class TransactionsController < ApplicationController
 
   def new
     @transaction = Transaction.new
+    @group = Group.find(params[:group_id]) if params[:group_id].present?
   end
 
   def create
-    @transaction = Transaction.new(transaction_params)
+    @group = Group.find(params[:group_id]) if params[:group_id].present?
+    @transaction = @group.transactions.new(transaction_params)
     if @transaction.save
-      redirect_to @transaction, notice: 'Transaction created successfully'
+      redirect_to group_transaction_url(id: @transaction.id), notice: 'Transaction created successfully'
     else
       redirect_back fallback_location: root_path, notice: 'Transaction creation failed'
     end
   end
 
   private
+
+  def set_group
+    @group = Group.find(params[:group_id]) if params[:group_id].present?
+  end
+
+  def transactions(month, year)
+  end
 
   def index_params
     params[:month].present? && params[:year].present? && params[:month].to_i.between?(1,

@@ -1,22 +1,26 @@
 .col-12.ps-5.pe-5
   .d-flex.justify-content-center.gap-3
-    .col.bg-light.rounded.p-3
-      h3 Personal Transactions
-      hr
-      .col-12.d-flex.justify-content-between
-        | #{Date.today.strftime("%B")} Total: #{number_to_currency(@transactions.sum(:amount), unit: "£")}
-        = link_to transactions_path(month: Date.today.month, year: Date.today.year), class: "btn btn-primary" do
-          | View All
+    - @groups.where(group_type: "personal").each do |group|
+      .col.bg-light.rounded.p-3
+        h3 Personal Transactions
+        hr
+        .col-12.d-flex.justify-content-between
+          | #{Date.today.strftime("%B")} Total: #{number_to_currency(@transactions.sum(:amount), unit: "£")}
+          = link_to group_transactions_path(group_id: group.id, month: Date.today.month, year: Date.today.year), class: "btn btn-primary" do
+            | View All
 
   .col-12.text-light
     hr
 
-  - if @groups.present?
-    - @groups.each do |group|
+  - if @groups.where(group_type: "shared").present?
+    - @groups.where(group_type: "shared").each do |group|
       .col.bg-light.rounded.p-3
-        h3= group.name
+        h3 = group.name
         hr
         .col-12.d-flex.justify-content-between
+          | #{Date.today.strftime("%B")} Total: #{number_to_currency(group.transactions.sum(:amount), unit: "£")}
+          = link_to group_transactions_path(group_id: group.id, month: Date.today.month, year: Date.today.year), class: "btn btn-primary" do
+            | View All
   
   - else
     .col.bg-light.rounded.p-3

@@ -3,18 +3,18 @@
     .col-11.col-md-6.col-lg-4.mt-5
       .col-12.d-flex.gap-2.overflow-auto.mb-2
         - (1..Date.today.month.to_i).reverse_each do |month|
-          = link_to transactions_url(:month => month, :year => Date.today.year), class: "btn  #{@month == month ? "btn-primary" : "btn-secondary"}" do
+          = link_to group_transactions_url(group_id: params[:group_id], month: month, year: Date.today.year), class: "btn  #{@month == month ? "btn-primary" : "btn-secondary"}" do
             = Date::MONTHNAMES[month]
 
       .col-12.bg-light.shadow.p-2
         .text-end.pb-2
-          = link_to new_transaction_path, class: "text-muted text-decoration-none" do
+          = link_to new_group_transaction_path(group_id: params[:group_id]), class: "text-muted text-decoration-none" do
             | + Add Transaction
         table.table.table-striped
           tbody
             - @transactions.each do |transaction|
-                a href="/transactions/#{transaction.id}" style="text-decoration: none;" onfocus="highlight(#{transaction.id})" onblur="removeHighlight('#{transaction.id}')"
-                tr id="#{transaction.id}" onclick="window.location='/transactions/#{transaction.id}'" style="cursor: pointer;"
+                a href="transactions/#{transaction.id}" style="text-decoration: none;" onfocus="highlight(#{transaction.id})" onblur="removeHighlight('#{transaction.id}')"
+                tr id="#{transaction.id}" onclick="window.location='transactions/#{transaction.id}'" style="cursor: pointer;"
                   td.col-2.text-start = transaction.date.strftime("%d %b")
                   td.col-8.text-start.fw-bold = transaction.title
                   td.col-2.text-end = number_to_currency(transaction.amount, unit: "£")

@@ -1,6 +1,6 @@
 .col-12.d-flex.justify-content-center
   .col-11.col-md-6.col-lg-4.bg-light.shadow.p-2.mt-5
-    = form_for @transaction do |f|
+    = form_for [@group, @transaction] do |f|
       .form-group.mt-2
         = f.label :title
         = f.text_field :title, class:"form-control", placeholder: "Title"

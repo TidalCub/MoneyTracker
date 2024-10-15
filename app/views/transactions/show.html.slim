@@ -3,7 +3,7 @@
     .text-start.pb-2
      
     .col-12.text-muted.d-flex.justify-content-between
-      = link_to transactions_path(month: @transaction.date.month, year: @transaction.date.year), class: "text-muted text-decoration-none" do
+      = link_to group_transactions_path(group_id: params[:group_id], month: @transaction.date.month, year: @transaction.date.year), class: "text-muted text-decoration-none" do
         | <- Back
       = @transaction.date.strftime("%d %b %Y")
     .col-12
