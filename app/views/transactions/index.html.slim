@@ -3,7 +3,7 @@
     .col-11.col-md-6.col-lg-4.mt-5
       .col-12.d-flex.gap-2.overflow-auto.mb-2
         - (1..Date.today.month.to_i).reverse_each do |month|
-          = link_to group_transactions_url(group_id: params[:group_id], month: month, year: Date.today.year), class: "btn  #{@month == month ? "btn-primary" : "btn-secondary"}" do
+          = link_to group_transactions_url(group_id: @group, month: month, year: Date.today.year), class: "btn  #{@month == month ? "btn-primary" : "btn-secondary"}" do
             = Date::MONTHNAMES[month]
 
       .col-12.bg-light.shadow.p-2

@@ -19,11 +19,9 @@ class TransactionsController < ApplicationController
 
   def new
     @transaction = Transaction.new
-    @group = Group.find(params[:group_id]) if params[:group_id].present?
   end
 
   def create
-    @group = Group.find(params[:group_id]) if params[:group_id].present?
     @transaction = @group.transactions.new(transaction_params)
     if @transaction.save
       redirect_to group_transaction_url(id: @transaction.id), notice: 'Transaction created successfully'
