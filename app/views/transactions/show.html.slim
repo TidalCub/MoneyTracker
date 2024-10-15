@@ -1,0 +1,15 @@
+.col-12.d-flex.justify-content-center
+  .col-11.col-md-6.col-lg-4.bg-light.shadow.p-2.mt-5
+    .col-12.text-muted
+      .text-end
+        = @transaction.date.strftime("%d %b %Y")
+    .col-12
+      h1 = @transaction.title
+      .text-muted = @transaction.description
+    hr
+    .col-12.text-center.p-3
+      .h2.p-0.m-0 = number_to_currency(@transaction.amount, unit: "£")
+    hr
+    .col-12.text-muted
+      .text-center.fst-italic
+        | ID: #{@transaction.id}
