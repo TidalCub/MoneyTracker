@@ -1,13 +1,30 @@
 .col-12.d-flex.justify-content-center
-  .col-11.col-md-6.col-lg-4.bg-light.shadow.p-2.mt-5
-    table.table.table-striped
-      tbody
-        - @transactions.each do |transaction|
-            a href="/transactions/#{transaction.id}" style="text-decoration: none;" onfocus="highlight(#{transaction.id})" onblur="removeHighlight('#{transaction.id}')"
-            tr id="#{transaction.id}" onclick="window.location='/transactions/#{transaction.id}'" style="cursor: pointer;"
-              td.col-2.text-start = transaction.date.strftime("%d %b")
-              td.col-8.text-start.fw-bold = transaction.title
-              td.col-2.text-end = number_to_currency(transaction.amount, unit: "£")
+
+    .col-11.col-md-6.col-lg-4.mt-5
+      .col-12.bg-light.d-flex.gap-2.overflow-auto.mb-2
+        - (1..Date.today.month.to_i).reverse_each do |month|
+          = link_to transactions_url(:month => month, :year => Date.today.year), class: "btn  #{@month == month ? "btn-primary" : "btn-secondary"}" do
+            = Date::MONTHNAMES[month]
+
+      .col-12.bg-light.shadow.p-2
+        .text-end.pb-2
+          = link_to new_transaction_path, class: "text-muted text-decoration-none" do
+            | + Add Transaction
+        table.table.table-striped
+          tbody
+            - @transactions.each do |transaction|
+                a href="/transactions/#{transaction.id}" style="text-decoration: none;" onfocus="highlight(#{transaction.id})" onblur="removeHighlight('#{transaction.id}')"
+                tr id="#{transaction.id}" onclick="window.location='/transactions/#{transaction.id}'" style="cursor: pointer;"
+                  td.col-2.text-start = transaction.date.strftime("%d %b")
+                  td.col-8.text-start.fw-bold = transaction.title
+                  td.col-2.text-end = number_to_currency(transaction.amount, unit: "£")
+      
+        .col-12.pe-2.d-flex.justify-content-between.ps-2.pe-2
+          div Monthly Total:
+          div = number_to_currency(@transactions.sum(:amount), unit: "£")
+    
+      .col-12.mt-3.d-flex.justify-content-end
+        
 
 javascript:
   function highlight(id) {
