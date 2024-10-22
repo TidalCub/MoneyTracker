@@ -8,6 +8,8 @@ html
 
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
+    script src="https://kit.fontawesome.com/7d7dff898e.js" crossorigin="anonymous">
+
   body.bg-dark
     .col-12.bg-dark.p-2
       = link_to root_path, class: "text-decoration-none" do
@@ -18,3 +20,14 @@ html
         = value
 
     = yield
+
+  .col-12.fixed-bottom.bg-info.d-flex.jsutify-content-center.pt-3.pb-1.text-dark
+    .col
+      = link_to root_path, class: "text-dark d-flex flex-column justify-content-center align-items-center text-decoration-none" do
+        i.fa-solid.fa-home.h4.p-0.m-0
+        | Home
+    .col
+      = link_to new_group_path, class: "text-dark d-flex flex-column justify-content-center align-items-center text-decoration-none" do
+        i.fa-solid.fa-user-group.h4.p-0.m-0
+        | Groups
+
