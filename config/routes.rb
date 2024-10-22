@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       get 'leave'
     end
   end
-  get 'join/:code', to: 'groups#join', as: :join_group
+  get 'join', to: 'groups#join', as: :join_group
 
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
