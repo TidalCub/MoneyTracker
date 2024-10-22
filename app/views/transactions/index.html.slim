@@ -30,6 +30,18 @@
   = link_to new_group_transaction_path, class: "btn btn-success rounded-circle" do
     span style="font-size:5rem; padding:0; margin:0; line-height:0.65" +
 
+button.btn.btn-primary onclick="document.getElementById('join_code_dialog').showModal();" Generate Join Code
+
+dialog#join_code_dialog.bg-light.ps-4.pe-4
+  h1 Join Code:
+  #join_code
+    - if @group.join_code_expired
+      = render partial: "groups/join_code_dialog"
+
+    - else
+      h2 Not generated yet
+      = button_to 'Generate Join Code', generate_join_code_group_path(@group), method: :post, data: { turbo: true }, class: "btn btn-primary"
+
 
 javascript:
   function highlight(id) {

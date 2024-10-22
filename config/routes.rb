@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   resources :groups do
     resources :transactions
+    member do
+      post 'generate_join_code'
+    end
   end
+  get 'join/:code', to: 'groups#join', as: :join_group
+
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

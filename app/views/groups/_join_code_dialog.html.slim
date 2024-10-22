@@ -1,0 +1,17 @@
+#join_code
+  .text-muted
+    | Give this code to your friends to join the group. The code will expire at #{@group.join_code_expiry.strftime("%H:%M")}
+  .col-12.d-flex.justify-content-center
+    .border.border-2.bg-dark.ps-3.pe-3.pt-1.rounded.text-light
+      h2 = @group.join_code
+  .col-12.d-flex.justify-content-center
+    = button_to 'Regenerate Join Code', generate_join_code_group_path(@group), method: :post, data: { turbo: true }, class: "btn btn-none"
+
+  hr
+
+  .col-12
+    | Or send them this link
+    .border.border-2.bg-dark.ps-3.pe-3.pt-1.rounded.text-light.text-center.pt-2.p-2
+      | #{join_group_url(code: @group.join_code)}
+
+  
