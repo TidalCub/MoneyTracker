@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :transactions
     member do
       post 'generate_join_code'
+      get 'leave'
     end
   end
   get 'join/:code', to: 'groups#join', as: :join_group

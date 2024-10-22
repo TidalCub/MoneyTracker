@@ -9,7 +9,7 @@ class TransactionsController < ApplicationController
       @transactions = @group.transactions.where(date: Date.new(@year, @month, 1)..Date.new(@year, @month, -1))
 
     else
-      redirect_to transactions_path(month: Date.today.month, year: Date.today.year)
+      redirect_to group_transactions_path(@group.id, month: Date.today.month, year: Date.today.year)
     end
   end
 
